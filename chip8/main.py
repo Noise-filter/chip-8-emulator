@@ -32,8 +32,8 @@ def load_rom(path: str) -> list[int]:
 
 
 def main():
-    # rom_bytes = load_rom(r"C:\Users\pontusfr\Downloads\chip8 roms\Random Number Test [Matthew Mikolay, 2010].ch8")
-    rom_bytes = load_rom(r"C:\Users\pontusfr\Downloads\AC8E-master\roms\games\TETRIS")
+    rom_bytes = load_rom(r"C:\Users\pontusfr\Downloads\chip-8 roms\Pong (alt).ch8")
+    # rom_bytes = load_rom(r"C:\Users\pontusfr\Downloads\AC8E-master\roms\games\TETRIS")
     # rom_bytes = load_rom(r"C:\Users\pontusfr\Downloads\roms\programs\SQRT Test [Sergey Naydenov, 2010].ch8")
 
     background_color = (0, 0, 0)
