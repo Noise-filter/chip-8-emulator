@@ -51,7 +51,10 @@ class Emulator:
         self.interpreter = Interpreter(self.interpreter_configuration)
 
         self.tick_timer: float = 0
+
         self.debug = False
+        self.step_through = False
+        self.break_point = False
 
     def load_font(self, font: list[int]):
         self.interpreter.load_font(font)
@@ -65,12 +68,27 @@ class Emulator:
             for event in pygame.event.get():
                 if event.type == QUIT:
                     self.quit_emulator()
+                elif event.type == KEYDOWN:
+                    if event.key == K_n:
+                        self.step_through = True
+                    elif event.key == K_b:
+                        self.break_point = not self.break_point
+
+            if self.debug and self.break_point:
+                if self.step_through:
+                    self.step_through = False
+                else:
+                    time.sleep(0.01)
+                    continue
 
             keys: list[bool] = self.input_handler.get_key_presses()
             if keys[-1]:
                 self.quit_emulator()
 
             op_code = self.interpreter.fetch()
+            if self.debug:
+                print(self.interpreter.registers)
+                print(hex(op_code.full()))
             try:
                 self.interpreter.decode_execute(op_code, keys[:-1])
             except UnknownInstructionError as e:

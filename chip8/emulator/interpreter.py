@@ -98,8 +98,9 @@ class Interpreter:
                     case 0x4:
                         x = op_code.x()
                         self.registers[x] += self.registers[op_code.y()]
-                        self.set_overflow(self.registers[x] > 255)
-                        self.registers[x] = (self.registers[x] % 255) - 1
+                        if self.registers[x] > 255:
+                            self.set_overflow(True)
+                            self.registers[x] = (self.registers[x] % 255) - 1
                     case 0x5:
                         x = op_code.x()
                         y = op_code.y()
