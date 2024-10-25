@@ -1,0 +1,2 @@
+-r common.txt
+black>=24.10.0
