@@ -1,3 +1,5 @@
+import argparse
+
 from chip8.input.input import PygameInput
 from chip8.emulator.emulator import Emulator
 from chip8.renderer.pygame_renderer import PygameRenderer
@@ -32,19 +34,21 @@ def load_rom(path: str) -> list[int]:
 
 
 def main():
-    rom_bytes = load_rom(r"C:\Users\pontusfr\Downloads\chip-8 roms\Pong (alt).ch8")
-    # rom_bytes = load_rom(r"C:\Users\pontusfr\Downloads\AC8E-master\roms\games\TETRIS")
-    # rom_bytes = load_rom(r"C:\Users\pontusfr\Downloads\roms\programs\SQRT Test [Sergey Naydenov, 2010].ch8")
+    parser = argparse.ArgumentParser(prog="CHIP-8 interpreter", description="")
+    parser.add_argument("filename")
+    parser.add_argument("-d", "--debug", action="store_true", dest="debug")
+    args = parser.parse_args()
+
+    rom_bytes = load_rom(args.filename)
 
     background_color = (0, 0, 0)
     sprite_color = (255, 255, 255)
 
     renderer = PygameRenderer("CHIP-8 Emulator", background_color, sprite_color)
-    # renderer = RendererInterface()
 
     input_handler = PygameInput()
 
-    emulator = Emulator(renderer, input_handler)
+    emulator = Emulator(renderer, input_handler, args.debug)
     emulator.load_font(font)
     emulator.load_rom(rom_bytes)
     emulator.run()
