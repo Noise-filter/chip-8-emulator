@@ -31,7 +31,7 @@ class EmulatorConfiguration:
 
 
 class Emulator:
-    def __init__(self, renderer: NullRenderer, input_handler: NullInput):
+    def __init__(self, renderer: NullRenderer, input_handler: NullInput, debug: bool):
         self.renderer = renderer
         self.input_handler = input_handler
 
@@ -52,7 +52,7 @@ class Emulator:
 
         self.tick_timer: float = 0
 
-        self.debug = False
+        self.debug = debug
         self.step_through = False
         self.break_point = False
 
